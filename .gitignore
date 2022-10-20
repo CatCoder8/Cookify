@@ -1,0 +1,4 @@
+.cache
+.parce-cache
+node_modules
+.prettiercc
