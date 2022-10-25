@@ -12,8 +12,42 @@ const timeout = function (s) {
 
 ///////////////////////////////////////
 
+// Function receiving object with key having underscore
+// converting to camelCase notation
+const convertCamelCase = function (obj) {
+  const entries = Object.entries(obj);
+
+  const newEntries = entries.map((entry) => {
+    const [key, value] = entry;
+    const lowerCaseKey = key.toLowerCase();
+    const newKey = lowerCaseKey
+      .split("_")
+      .map((key, i) => {
+        if (i == 0) return key;
+        return `${key[0].toUpperCase()}${key.slice(1)}`;
+      })
+      .join("");
+    return [newKey, value];
+  });
+
+  return newEntries;
+};
+
+// Spinner on loading
+const renderSpinner = function (parentEl) {
+  const spinnerHTML = `<div class="spinner">
+  <svg>
+    <use href="${icons}#icon-loader"></use>
+  </svg>
+</div> 
+`;
+  parentEl.innerHTML = "";
+  parentEl.insertAdjacentHTML("afterbegin", spinnerHTML);
+};
+
 const showRecipe = async function () {
   try {
+    renderSpinner(recipeContainer);
     // 1. Load
     const res = await fetch(
       "https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886"
@@ -129,27 +163,6 @@ const showRecipe = async function () {
   } catch (err) {
     alert(err);
   }
-};
-
-// Function receiving object with key having underscore
-// converting to camelCase notation
-const convertCamelCase = function (obj) {
-  const entries = Object.entries(obj);
-
-  const newEntries = entries.map((entry) => {
-    const [key, value] = entry;
-    const lowerCaseKey = key.toLowerCase();
-    const newKey = lowerCaseKey
-      .split("_")
-      .map((key, i) => {
-        if (i == 0) return key;
-        return `${key[0].toUpperCase()}${key.slice(1)}`;
-      })
-      .join("");
-    return [newKey, value];
-  });
-
-  return newEntries;
 };
 
 showRecipe();
