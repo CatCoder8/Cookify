@@ -19,22 +19,33 @@ const showRecipe = async function () {
 
     if (!res.ok) throw new Error(`${data.message} ${res.status}`);
 
-    // TODO Refactor
-    let { recipe } = data.data;
-    recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      sourceUrl: recipe.source_url,
-      image: recipe.image_url,
-      servings: recipe.servings,
-      cookingTime: recipe.cooking_time,
-      ingredients: recipe.ingredients,
-    };
+    // Converting underscore keys to camelcase
+    const recipe = Object.fromEntries(convertCamelCase(data.data.recipe));
     console.log(recipe);
   } catch (err) {
     alert(err);
   }
+};
+
+// Function receiving object with key having underscore
+// converting to camelCase notation
+const convertCamelCase = function (obj) {
+  const entries = Object.entries(obj);
+
+  const newEntries = entries.map((entry) => {
+    const [key, value] = entry;
+    const lowerCaseKey = key.toLowerCase();
+    const newKey = lowerCaseKey
+      .split("_")
+      .map((key, i) => {
+        if (i == 0) return key;
+        return `${key[0].toUpperCase()}${key.slice(1)}`;
+      })
+      .join("");
+    return [newKey, value];
+  });
+
+  return newEntries;
 };
 
 showRecipe();
