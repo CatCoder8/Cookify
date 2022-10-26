@@ -18,11 +18,16 @@ const timeout = function (s) {
 
 const showRecipe = async function () {
   try {
+    // Getting the hash id base on url
     const id = window.location.hash.slice(1);
     if (!id) return;
+
+    // Render spinner while fetching data
     recipeView.renderSpinner();
+
     // 1. Load
     await model.loadRecipe(id);
+
     // 2. Render
     recipeView.render(model.state.recipe);
   } catch (err) {
@@ -30,4 +35,5 @@ const showRecipe = async function () {
   }
 };
 
+// Initialization (when user starts program / user change url)
 ["hashchange", "load"].forEach((ev) => window.addEventListener(ev, showRecipe));

@@ -5,6 +5,7 @@ class RecipeView {
   #parentElement = document.querySelector(".recipe");
   #data;
 
+  // Updating markup base on state
   render(data) {
     this.#data = data;
 
@@ -95,10 +96,6 @@ class RecipeView {
   </div>`;
   }
 
-  #clear() {
-    this.#parentElement.innerHTML = "";
-  }
-
   #generateMarkupIngredient(ing) {
     return `
         <li class="recipe__ingredient">
@@ -114,6 +111,11 @@ class RecipeView {
           </div>
         </li>`;
   }
+
+  #clear() {
+    this.#parentElement.innerHTML = "";
+  }
+
   // Spinner on loading
   renderSpinner = function () {
     const spinnerMarkup = `<div class="spinner">
