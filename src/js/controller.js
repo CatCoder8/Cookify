@@ -28,4 +28,8 @@ const showRecipe = async function () {
 };
 
 // Initialization (when user starts program / user change url)
-["hashchange", "load"].forEach((ev) => window.addEventListener(ev, showRecipe));
+const init = function () {
+  recipeView.addHandlerRender(showRecipe);
+};
+
+init();
