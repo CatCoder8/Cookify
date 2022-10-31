@@ -1,5 +1,5 @@
-import { async } from "regenerator-runtime";
-import * as helper from "./helper.js";
+import { convertCamelCase, getJSON } from "./helper.js";
+import { API_URL } from "./config.js";
 
 export const state = {
   recipe: {},
@@ -9,14 +9,8 @@ export const state = {
 
 export const loadRecipe = async function (id) {
   // Fetching data
-  const res = await fetch(
-    `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
-  );
-  const data = await res.json();
-
-  if (!res.ok) throw new Error(`${data.message} ${res.status}`);
-
+  const data = await getJSON(`${API_URL}/${id}`);
   // Passing into recipe obj
-  state.recipe = Object.fromEntries(helper.convertCamelCase(data.data.recipe));
+  state.recipe = Object.fromEntries(convertCamelCase(data.data.recipe));
   console.log(state.recipe);
 };

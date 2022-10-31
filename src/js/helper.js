@@ -1,5 +1,6 @@
-// Function receiving object with key having underscore naming
-// converting to camelCase notation
+import { TIMEOUT_SECS } from "./config";
+
+// Converting to camelCase notation
 export const convertCamelCase = function (obj) {
   const entries = Object.entries(obj);
 
@@ -17,4 +18,26 @@ export const convertCamelCase = function (obj) {
   });
 
   return newEntries;
+};
+
+// Error handling for long time request
+const timeout = function (s) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error(`Request took too long! Timeout after ${s} second`));
+    }, s * 1000);
+  });
+};
+
+// Return JSON from API
+export const getJSON = async function (url) {
+  try {
+    const res = await Promise.race([fetch(url), timeout(TIMEOUT_SECS)]);
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+    return data;
+  } catch (err) {
+    throw err;
+  }
 };
