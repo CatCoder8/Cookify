@@ -1,4 +1,4 @@
-import { convertCamelCase, getJSON } from "./helper.js";
+import { convertCamelCase, getJSON } from "./helpers.js";
 import { API_URL } from "./config.js";
 
 export const state = {
