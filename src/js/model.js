@@ -8,9 +8,14 @@ export const state = {
 // Fetching data and changing state of the recipe data
 
 export const loadRecipe = async function (id) {
-  // Fetching data
-  const data = await getJSON(`${API_URL}/${id}`);
-  // Passing into recipe obj
-  state.recipe = Object.fromEntries(convertCamelCase(data.data.recipe));
-  console.log(state.recipe);
+  try {
+    // Fetching data
+    const data = await getJSON(`${API_URL}/${id}`);
+
+    // Passing into recipe obj
+    state.recipe = Object.fromEntries(convertCamelCase(data.data.recipe));
+    console.log(state.recipe);
+  } catch (err) {
+    throw err;
+  }
 };
