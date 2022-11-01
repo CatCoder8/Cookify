@@ -42,7 +42,7 @@ class RecipeView {
         <use href="${icons}#icon-smile"></use>
       </svg>
     </div>
-    <p>${this.#Message}</p>
+    <p>${this.#message}</p>
   </div>`;
     this.#clear();
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
