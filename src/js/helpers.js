@@ -2,10 +2,7 @@ import { TIMEOUT_SECS } from "./config";
 
 // Converting to camelCase notation
 export const convertCamelCase = function (obj) {
-  const entries = Object.entries(obj);
-
-  const newEntries = entries.map((entry) => {
-    const [key, value] = entry;
+  const convertedObj = Object.entries(obj).map(([key, value]) => {
     const lowerCaseKey = key.toLowerCase();
     const newKey = lowerCaseKey
       .split("_")
@@ -17,7 +14,7 @@ export const convertCamelCase = function (obj) {
     return [newKey, value];
   });
 
-  return newEntries;
+  return Object.fromEntries(convertedObj);
 };
 
 // Error handling for long time request

@@ -17,10 +17,10 @@ const controlRecipe = async function () {
     // Render spinner while fetching data
     recipeView.renderSpinner();
 
-    // 1. Load
+    // 1. Load recipe
     await model.loadRecipe(id);
 
-    // 2. Render
+    // 2. Render recipe
     recipeView.render(model.state.recipe);
   } catch {
     recipeView.renderErrorMessage();
@@ -29,22 +29,24 @@ const controlRecipe = async function () {
 
 const controlSearchResults = async function () {
   try {
+    // Render spinner while fetching data
     resultsView.renderSpinner();
+
     // Get query
     const query = searchView.getQuery();
     if (!query) return;
 
-    // Load the query
+    // Load query
     await model.loadSearchResult(query);
 
     // Render query
     resultsView.render(model.state.search.results);
   } catch (err) {
-    console.log(err);
+    resultsView.renderErrorMessage();
   }
 };
 
-// Initialization (when user starts program / user change url)
+// Listening to events
 const init = function () {
   recipeView.addHandlerRender(controlRecipe);
   searchView.addSearchHandler(controlSearchResults);
