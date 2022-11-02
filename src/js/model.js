@@ -1,15 +1,17 @@
 import { convertCamelCase, getJSON } from "./helpers.js";
-import { API_URL } from "./config.js";
+import { API_URL, TOTAL_SEARCH_COUNT as TOTAL_SEARCH_COUNT } from "./config.js";
 
 export const state = {
   recipe: {},
   search: {
     query: "",
     results: [],
+    page: 1,
+    totalSearchCount: TOTAL_SEARCH_COUNT,
   },
 };
 
-// Fetching data and changing state of the recipe data
+// Fetching data and changing state of the recipe
 export const loadRecipe = async function (id) {
   try {
     // Fetching data
@@ -24,6 +26,7 @@ export const loadRecipe = async function (id) {
   }
 };
 
+// Fetching data and changing state of the search
 export const loadSearchResult = async function (query) {
   try {
     // Fetching data
@@ -38,4 +41,14 @@ export const loadSearchResult = async function (query) {
     console.log(err);
     throw err;
   }
+};
+
+// Getting only the 10 search results per page
+export const searchResultsPage = function (page = state.search.page) {
+  state.search.page = page;
+
+  let start = (page - 1) * state.search.totalSearchCount;
+  let end = page * state.search.totalSearchCount;
+
+  return state.search.results.slice(start, end);
 };
