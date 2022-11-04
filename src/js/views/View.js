@@ -20,8 +20,7 @@ export default class Views {
   }
 
   renderUpdate(data) {
-    if (!data || (Array.isArray(data) && data.length === 0))
-      return this.renderErrorMessage();
+    if (!data) return this.renderErrorMessage();
 
     this._data = data;
 

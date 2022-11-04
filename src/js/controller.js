@@ -20,6 +20,9 @@ const controlRecipe = async function () {
     // Render spinner while fetching data
     recipeView.renderSpinner();
 
+    // Highlight selected recipe in results page
+    resultsView.renderUpdate(model.searchResultsPage());
+
     // Load and render recipe
     await model.loadRecipe(id);
     recipeView.render(model.state.recipe);
