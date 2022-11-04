@@ -1,5 +1,9 @@
 import { convertCamelCase, getJSON } from "./helpers.js";
-import { API_URL, TOTAL_SEARCH_COUNT as TOTAL_SEARCH_COUNT } from "./config.js";
+import {
+  API_URL,
+  DEFAULT_PAGE,
+  TOTAL_SEARCH_COUNT as TOTAL_SEARCH_COUNT,
+} from "./config.js";
 
 export const state = {
   recipe: {},
@@ -44,7 +48,7 @@ export const loadSearchResult = async function (query) {
 };
 
 // Getting only the 10 search results per page
-export const searchResultsPage = function (page = state.search.page) {
+export const searchResultsPage = function (page = DEFAULT_PAGE) {
   state.search.page = page;
 
   let start = (page - 1) * state.search.totalSearchCount;

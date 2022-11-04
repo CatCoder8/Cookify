@@ -27,6 +27,7 @@ export default class Views {
     // Updating text && attributes
     const previousMarkup = this._parentElement.querySelectorAll("*");
     const newMarkup = this._generateMarkup();
+
     update(previousMarkup, newMarkup);
   }
 
