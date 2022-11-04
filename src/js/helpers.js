@@ -40,7 +40,7 @@ export const getJSON = async function (url) {
 };
 
 // Dynamic updating text and attributes
-export const updateText = function (previousMarkup, newMarkup) {
+export const update = function (previousMarkup, newMarkup) {
   // Getting the Node list in the previous and new markup
   const curElements = Array.from(previousMarkup);
 

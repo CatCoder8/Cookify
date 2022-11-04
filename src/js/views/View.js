@@ -1,5 +1,5 @@
 import icons from "../../img/icons.svg";
-import { updateText } from "../helpers";
+import { update } from "../helpers";
 
 export default class Views {
   _data;
@@ -27,7 +27,7 @@ export default class Views {
     // Updating text && attributes
     const previousMarkup = this._parentElement.querySelectorAll("*");
     const newMarkup = this._generateMarkup();
-    updateText(previousMarkup, newMarkup);
+    update(previousMarkup, newMarkup);
   }
 
   // Message when there is an error
