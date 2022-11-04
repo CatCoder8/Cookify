@@ -7,6 +7,10 @@ import paginationView from "./views/paginationView.js";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
+// if (module.hot) {
+//   module.hot.accept();
+// }
+
 const controlRecipe = async function () {
   try {
     // Getting the hash id base on url
@@ -53,7 +57,7 @@ const controlServings = function (servings) {
   model.updateServings(servings);
 
   // Render recipe base on new servings
-  recipeView.render(model.state.recipe);
+  recipeView.renderUpdate(model.state.recipe);
 };
 
 // Listening to events

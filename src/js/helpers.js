@@ -38,3 +38,25 @@ export const getJSON = async function (url) {
     throw err;
   }
 };
+
+// Dynamic updating text content
+export const updateText = function (parentElement, updatedMarkup) {
+  // Getting the DOM in the updated markup and previously markup
+  const newDOM = document.createRange().createContextualFragment(updatedMarkup);
+  const curElements = Array.from(parentElement.querySelectorAll("*"));
+  const newElements = Array.from(newDOM.querySelectorAll("*"));
+
+  newElements.forEach((newEl, i) => {
+    const curEl = curElements[i];
+
+    // Update changed text
+    if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() != "")
+      curEl.textContent = newEl.textContent;
+
+    // Update changed attributes
+    if (!newEl.isEqualNode(curEl))
+      Array.from(newEl.attributes).forEach((attr) =>
+        curEl.setAttribute(attr.name, attr.value)
+      );
+  });
+};

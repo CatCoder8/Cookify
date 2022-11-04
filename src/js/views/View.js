@@ -1,4 +1,5 @@
 import icons from "../../img/icons.svg";
+import { updateText } from "../helpers";
 
 export default class Views {
   _data;
@@ -16,6 +17,17 @@ export default class Views {
     const markup = this._generateMarkup();
     this._clear();
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  renderUpdate(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderErrorMessage();
+
+    this._data = data;
+
+    // Updating text
+    const updatedMarkup = this._generateMarkup();
+    updateText(this._parentElement, updatedMarkup);
   }
 
   // Message when there is an error
