@@ -10,9 +10,10 @@ export const state = {
   search: {
     query: "",
     results: [],
-    page: 1,
+    page: DEFAULT_PAGE,
     totalSearchCount: TOTAL_SEARCH_COUNT,
   },
+  bookmarks: [],
 };
 
 // Fetching data and changing state of the recipe
@@ -23,6 +24,11 @@ export const loadRecipe = async function (id) {
 
     // Passing into recipe obj
     state.recipe = convertCamelCase(data.data.recipe);
+
+    if (state.bookmarks.some((bookmark) => bookmark.id === id))
+      state.recipe.bookmarked = true;
+    else state.recipe.bookmarked = false;
+
     console.log(state.recipe);
   } catch (err) {
     console.log(err);
@@ -65,4 +71,21 @@ export const updateServings = function (newServings) {
   });
 
   state.recipe.servings = newServings;
+};
+
+export const addBookmark = function (recipe) {
+  // Add recipe to bookmark obj
+  state.bookmarks.push(recipe);
+
+  // Make recipe property bookmarked to true
+  state.recipe.bookmarked = recipe.id === state.recipe.id;
+};
+
+export const deleteBookmark = function (id) {
+  // Delete recipe to bookmark obj
+  const index = state.bookmark.findIndex((el) => (el.id = id));
+  state.bookmark.splice(index, 1);
+
+  // Make recipe property bookmarked to false
+  state.recipe.bookmarked = !id === state.recipe.id;
 };
