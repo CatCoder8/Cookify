@@ -25,7 +25,7 @@ export default class Views {
 
     this._data = data;
 
-    // Updating text
+    // Updating text && attributes
     const updatedMarkup = this._generateMarkup();
     updateText(this._parentElement, updatedMarkup);
   }

@@ -39,7 +39,7 @@ export const getJSON = async function (url) {
   }
 };
 
-// Dynamic updating text content
+// Dynamic updating text && attributes
 export const updateText = function (parentElement, updatedMarkup) {
   // Getting the DOM in the updated markup and previously markup
   const newDOM = document.createRange().createContextualFragment(updatedMarkup);
