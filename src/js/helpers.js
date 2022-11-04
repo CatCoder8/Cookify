@@ -39,11 +39,12 @@ export const getJSON = async function (url) {
   }
 };
 
-// Dynamic updating text && attributes
-export const updateText = function (parentElement, updatedMarkup) {
-  // Getting the DOM in the updated markup and previously markup
-  const newDOM = document.createRange().createContextualFragment(updatedMarkup);
-  const curElements = Array.from(parentElement.querySelectorAll("*"));
+// Dynamic updating text and attributes
+export const updateText = function (previousMarkup, newMarkup) {
+  // Getting the Node list in the previous and new markup
+  const curElements = Array.from(previousMarkup);
+
+  const newDOM = document.createRange().createContextualFragment(newMarkup);
   const newElements = Array.from(newDOM.querySelectorAll("*"));
 
   newElements.forEach((newEl, i) => {

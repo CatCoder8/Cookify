@@ -25,8 +25,9 @@ export default class Views {
     this._data = data;
 
     // Updating text && attributes
-    const updatedMarkup = this._generateMarkup();
-    updateText(this._parentElement, updatedMarkup);
+    const previousMarkup = this._parentElement.querySelectorAll("*");
+    const newMarkup = this._generateMarkup();
+    updateText(previousMarkup, newMarkup);
   }
 
   // Message when there is an error
