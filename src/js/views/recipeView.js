@@ -5,7 +5,6 @@ import View from "./View.js";
 class RecipeView extends View {
   _parentElement = document.querySelector(".recipe");
   _alertMessage = "No recipe found for your query. Please try again :)";
-  #message = "";
 
   // Entry point. Rendering recipe element.
   addHandlerRender(handler) {

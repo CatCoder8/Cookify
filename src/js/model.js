@@ -16,6 +16,7 @@ export const state = {
   bookmarks: [],
 };
 
+// NOTE: RELATED TO RECIPE FUNCTION
 // Fetching data and changing state of the recipe
 export const loadRecipe = async function (id) {
   try {
@@ -36,6 +37,7 @@ export const loadRecipe = async function (id) {
   }
 };
 
+// NOTE: RELATED TO SEARCH FUNCTION
 // Fetching data and changing state of the search
 export const loadSearchResult = async function (query) {
   try {
@@ -73,6 +75,7 @@ export const updateServings = function (newServings) {
   state.recipe.servings = newServings;
 };
 
+// NOTE: RELATED TO BOOKMARK FUNCTION
 export const addBookmark = function (recipe) {
   // Add recipe to bookmark obj
   state.bookmarks.push(recipe);

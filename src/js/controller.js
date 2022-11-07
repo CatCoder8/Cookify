@@ -11,6 +11,7 @@ import "regenerator-runtime/runtime";
 //   module.hot.accept();
 // }
 
+// NOTE: CONTROLS
 const controlRecipe = async function () {
   try {
     // Getting the hash id base on url
@@ -73,7 +74,7 @@ const controlBookmark = function () {
   console.log(model.state.bookmarks);
 };
 
-// Listening to events
+// NOTE: EVENTS
 const init = function () {
   recipeView.addHandlerRender(controlRecipe);
   recipeView.addHandlerServings(controlServings);

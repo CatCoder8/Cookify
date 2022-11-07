@@ -17,7 +17,7 @@ export const convertCamelCase = function (obj) {
   return Object.fromEntries(convertedObj);
 };
 
-// Error handling for long time request
+// Error handling promise for x time request
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
