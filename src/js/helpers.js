@@ -1,11 +1,11 @@
 import { TIMEOUT_SECS } from "./config";
 
 // Converting to camelCase notation
-export const convertCamelCase = function (obj) {
+export const convertCamelCase = function (obj, splitSymbol = "_") {
   const convertedObj = Object.entries(obj).map(([key, value]) => {
     const lowerCaseKey = key.toLowerCase();
     const newKey = lowerCaseKey
-      .split("_")
+      .split(splitSymbol)
       .map((key, i) => {
         if (i == 0) return key;
         return `${key[0].toUpperCase()}${key.slice(1)}`;
