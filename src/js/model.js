@@ -99,6 +99,11 @@ const persistBookmark = function () {
   localStorage.setItem("bookmark", JSON.stringify(state.bookmarks));
 };
 
+// const clearBookmarks = function () {
+//   localStorage.clear("bookmarks");
+// };
+// clearBookmarks();
+
 const init = function () {
   const storage = localStorage.getItem("bookmark");
   if (storage) state.bookmarks = JSON.parse(storage);
@@ -106,7 +111,22 @@ const init = function () {
 
 init();
 
-// const delStorageBookmark = function () {
-//   localStorage.clear("bookmarks");
-// };
-// delStorageBookmark();
+export const uploadRecipe = async function (newRecipe) {
+  try {
+    const ingredients = newRecipe
+      .filter((entry) => entry[0].startsWith("ingredient") && entry[1] !== "")
+      .map((ing) => {
+        const ingArr = ing[1].replaceAll(" ", "").split(",");
+        if (ingArr.length !== 3)
+          throw new Error(
+            "Wrong ingredients format! Please use the correct format."
+          );
+
+        const [quantity, unit, description] = ingArr;
+        return { quantity: quantity ? +quantity : null, unit, description };
+      });
+    console.log(ingredients);
+  } catch (err) {
+    throw err;
+  }
+};

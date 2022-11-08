@@ -83,8 +83,12 @@ const controlStoreBookmark = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlRecipeUpload = function (recipeUploaded) {
-  console.log(Object.fromEntries(recipeUploaded));
+const controlAddRecipe = async function (newRecipe) {
+  try {
+    await model.uploadRecipe(newRecipe);
+  } catch (err) {
+    addRecipeView.renderErrorMessage(err.message);
+  }
 };
 
 // NOTE: EVENTS
@@ -95,7 +99,7 @@ const init = function () {
   recipeView.addHandlerBookmark(controlBookmark);
   searchView.addSearchHandler(controlSearchResults);
   paginationView.addPageBtnHandler(controlPagination);
-  addRecipeView.addHandlerUpload(controlRecipeUpload);
+  addRecipeView.addHandlerUpload(controlAddRecipe);
 };
 
 init();
