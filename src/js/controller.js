@@ -2,6 +2,7 @@ import * as model from "./model.js";
 import recipeView from "./views/recipeView.js";
 import searchView from "./views/searchView.js";
 import resultsView from "./views/resultsView.js";
+import bookmarksView from "./views/bookmarksView";
 import paginationView from "./views/paginationView.js";
 
 import "core-js/stable";
@@ -21,8 +22,9 @@ const controlRecipe = async function () {
     // Render spinner while fetching data
     recipeView.renderSpinner();
 
-    // Highlight selected recipe in results page
+    // Highlight selected recipe in results and bookmark section
     resultsView.renderUpdate(model.searchResultsPage());
+    bookmarksView.renderUpdate(model.state.bookmarks);
 
     // Load and render recipe
     await model.loadRecipe(id);
@@ -71,7 +73,9 @@ const controlBookmark = function () {
 
   // Updating bookmark icon
   recipeView.renderUpdate(model.state.recipe);
-  console.log(model.state.bookmarks);
+
+  // Adding on bookmark section
+  bookmarksView.render(model.state.bookmarks);
 };
 
 // NOTE: EVENTS
