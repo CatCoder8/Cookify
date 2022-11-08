@@ -82,6 +82,8 @@ export const addBookmark = function (recipe) {
 
   // Make recipe property bookmarked to true
   state.recipe.bookmarked = recipe.id === state.recipe.id;
+
+  persistBookmark();
 };
 
 export const deleteBookmark = function (id) {
@@ -91,4 +93,22 @@ export const deleteBookmark = function (id) {
 
   // Make recipe property bookmarked to false
   state.recipe.bookmarked = !id === state.recipe.id;
+
+  persistBookmark();
 };
+
+const persistBookmark = function () {
+  localStorage.setItem("bookmark", JSON.stringify(state.bookmarks));
+};
+
+const init = function () {
+  const storage = localStorage.getItem("bookmark");
+  if (storage) state.bookmarks = JSON.parse(storage);
+};
+
+init();
+
+// const delStorageBookmark = function () {
+//   localStorage.clear("bookmarks");
+// };
+// delStorageBookmark();

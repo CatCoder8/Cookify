@@ -74,12 +74,18 @@ const controlBookmark = function () {
   // Updating bookmark icon
   recipeView.renderUpdate(model.state.recipe);
 
-  // Adding on bookmark section
+  // Adding preview on bookmark section
+  bookmarksView.render(model.state.bookmarks);
+};
+
+const controlStoreBookmark = function () {
+  // Adding preview on bookmark section
   bookmarksView.render(model.state.bookmarks);
 };
 
 // NOTE: EVENTS
 const init = function () {
+  bookmarksView.addHandlerStoreBookmark(controlStoreBookmark);
   recipeView.addHandlerRender(controlRecipe);
   recipeView.addHandlerServings(controlServings);
   recipeView.addHandlerBookmark(controlBookmark);
