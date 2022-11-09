@@ -85,8 +85,17 @@ const controlStoreBookmark = function () {
 
 const controlAddRecipe = async function (newRecipe) {
   try {
+    // Render spinner
+    addRecipeView.renderSpinner();
+
     await model.uploadRecipe(newRecipe);
     console.log(model.state.recipe);
+
+    // Render new recipe
+    recipeView.render(model.state.recipe);
+
+    // Success message
+    addRecipeView.renderMessage();
   } catch (err) {
     addRecipeView.renderErrorMessage(err.message);
     console.log(err);
