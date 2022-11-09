@@ -91,11 +91,13 @@ const controlAddRecipe = async function (newRecipe) {
     await model.uploadRecipe(newRecipe);
     console.log(model.state.recipe);
 
-    // Render new recipe
-    recipeView.render(model.state.recipe);
+    // Change id in url
+    window.history.pushState(null, "", `#${model.state.recipe.id}`);
 
-    // Success message
+    // Render new recipe, bookmark view and success message
+    recipeView.render(model.state.recipe);
     addRecipeView.renderMessage();
+    bookmarksView.render(model.state.bookmarks);
   } catch (err) {
     addRecipeView.renderErrorMessage(err.message);
     console.log(err);
