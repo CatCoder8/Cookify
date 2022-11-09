@@ -89,7 +89,6 @@ const controlAddRecipe = async function (newRecipe) {
     addRecipeView.renderSpinner();
 
     await model.uploadRecipe(newRecipe);
-    console.log(model.state.recipe);
 
     // Change id in url
     window.history.pushState(null, "", `#${model.state.recipe.id}`);
@@ -100,7 +99,6 @@ const controlAddRecipe = async function (newRecipe) {
     bookmarksView.render(model.state.bookmarks);
   } catch (err) {
     addRecipeView.renderErrorMessage(err.message);
-    console.log(err);
   }
 };
 
