@@ -26,7 +26,6 @@ export const loadRecipe = async function (id) {
 
     // Passing into recipe obj
     state.recipe = convertCamelCase(data.data.recipe);
-
     if (state.bookmarks.some((bookmark) => bookmark.id === id))
       state.recipe.bookmarked = true;
     else state.recipe.bookmarked = false;
@@ -142,7 +141,12 @@ export const uploadRecipe = async function (recipeData) {
 
     // Send newRecipe
     const data = await sendJSON(`${API_URL}?key=${KEY}`, newRecipe);
-    console.log(data);
+
+    // Passing into recipe obj
+    state.recipe = convertCamelCase(data.data.recipe);
+
+    // Bookmark new recipe
+    addBookmark(state.recipe);
   } catch (err) {
     throw err;
   }
