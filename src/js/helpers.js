@@ -1,3 +1,4 @@
+import { async } from "regenerator-runtime";
 import { TIMEOUT_SECS } from "./config";
 
 // Converting to camelCase notation
@@ -26,34 +27,26 @@ const timeout = function (s) {
   });
 };
 
-// Return JSON from API
-export const getJSON = async function (url) {
+export const AJAX = async function (url, uploadData = undefined) {
   try {
-    const fetchLink = await fetch(url);
+    // Define fetchLink if it's receive or send
+    const fetchLink = uploadData
+      ? await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(uploadData),
+        })
+      : await fetch(url);
+
+    // Error handling base on time
     const res = await Promise.race([fetchLink, timeout(TIMEOUT_SECS)]);
+
+    // Converting to an obj
     const data = await res.json();
 
-    if (!res.ok) throw new Error(`${data.message} ${res.status}`);
-    return data;
-  } catch (err) {
-    throw err;
-  }
-};
-
-// Send JSON from API
-export const sendJSON = async function (url, uploadData) {
-  try {
-    const fetchLink = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(uploadData),
-    });
-
-    const res = await Promise.race([fetchLink, timeout(TIMEOUT_SECS)]);
-    const data = await res.json();
-
+    // Error handling base on response
     if (!res.ok) throw new Error(`${data.message} ${res.status}`);
     return data;
   } catch (err) {

@@ -1,4 +1,4 @@
-import { convertCamelCase, getJSON, sendJSON } from "./helpers.js";
+import { convertCamelCase, AJAX } from "./helpers.js";
 import {
   API_URL,
   DEFAULT_PAGE,
@@ -22,7 +22,7 @@ export const state = {
 export const loadRecipe = async function (id) {
   try {
     // Fetching data
-    const data = await getJSON(`${API_URL}${id}`);
+    const data = await AJAX(`${API_URL}${id}`);
 
     // Passing into recipe obj
     state.recipe = convertCamelCase(data.data.recipe);
@@ -40,7 +40,7 @@ export const loadRecipe = async function (id) {
 export const loadSearchResult = async function (query) {
   try {
     // Fetching data
-    const data = await getJSON(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}`);
 
     // Passing to search obj
     state.search.query = query;
@@ -140,7 +140,7 @@ export const uploadRecipe = async function (recipeData) {
     };
 
     // Send newRecipe
-    const data = await sendJSON(`${API_URL}?key=${KEY}`, newRecipe);
+    const data = await AJAX(`${API_URL}?key=${KEY}`, newRecipe);
 
     // Passing into recipe obj
     state.recipe = convertCamelCase(data.data.recipe);
