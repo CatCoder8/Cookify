@@ -88,6 +88,7 @@ const controlAddRecipe = async function (newRecipe) {
     await model.uploadRecipe(newRecipe);
   } catch (err) {
     addRecipeView.renderErrorMessage(err.message);
+    console.log(err);
   }
 };
 

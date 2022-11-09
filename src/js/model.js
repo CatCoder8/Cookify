@@ -1,8 +1,9 @@
-import { convertCamelCase, getJSON } from "./helpers.js";
+import { convertCamelCase, getJSON, sendJSON } from "./helpers.js";
 import {
   API_URL,
   DEFAULT_PAGE,
   TOTAL_SEARCH_COUNT as TOTAL_SEARCH_COUNT,
+  KEY,
 } from "./config.js";
 
 export const state = {
@@ -46,7 +47,6 @@ export const loadSearchResult = async function (query) {
     state.search.query = query;
     const results = data.data.recipes;
     state.search.results = results.map((obj) => convertCamelCase(obj));
-    console.log(state.search.results);
   } catch (err) {
     console.log(err);
     throw err;
@@ -111,9 +111,11 @@ const init = function () {
 
 init();
 
-export const uploadRecipe = async function (newRecipe) {
+// NOTE: UPLOAD RECIPE
+export const uploadRecipe = async function (recipeData) {
   try {
-    const ingredients = newRecipe
+    // Get the ingredients
+    const ingredients = recipeData
       .filter((entry) => entry[0].startsWith("ingredient") && entry[1] !== "")
       .map((ing) => {
         const ingArr = ing[1].replaceAll(" ", "").split(",");
@@ -125,7 +127,22 @@ export const uploadRecipe = async function (newRecipe) {
         const [quantity, unit, description] = ingArr;
         return { quantity: quantity ? +quantity : null, unit, description };
       });
-    console.log(ingredients);
+
+    // Convert recipe into accepted format in API
+    const recipe = Object.fromEntries(recipeData);
+    const newRecipe = {
+      title: recipe.title,
+      source_url: recipe.sourceUrl,
+      image_url: recipe.image,
+      publisher: recipe.publisher,
+      cooking_time: +recipe.cookingTime,
+      servings: +recipe.servings,
+      ingredients,
+    };
+
+    // Send newRecipe
+    const data = await sendJSON(`${API_URL}?key=${KEY}`, newRecipe);
+    console.log(data);
   } catch (err) {
     throw err;
   }
