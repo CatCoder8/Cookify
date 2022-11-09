@@ -22,7 +22,7 @@ export const state = {
 export const loadRecipe = async function (id) {
   try {
     // Fetching data
-    const data = await AJAX(`${API_URL}${id}`);
+    const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
 
     // Passing into recipe obj
     state.recipe = convertCamelCase(data.data.recipe);
@@ -40,7 +40,7 @@ export const loadRecipe = async function (id) {
 export const loadSearchResult = async function (query) {
   try {
     // Fetching data
-    const data = await AJAX(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
 
     // Passing to search obj
     state.search.query = query;
