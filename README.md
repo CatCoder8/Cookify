@@ -1,1 +1,1 @@
-link: https://cookify-spicoder.netlify.app/
+link: https://spicoder-cookify.netlify.app/
